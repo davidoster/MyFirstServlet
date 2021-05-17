@@ -69,6 +69,8 @@ public class Servlet1 extends HttpServlet {
             out.println("<div><p>This is a servlet</p></div>");
             out.println("<h1>Servlet Servlet1 at " + request.getContextPath() + "</h1>");
             out.println("<p>" + request.getMethod() + "</p>");
+            // username = 
+            // password = 
             out.println("</body>");
             out.println("</html>");
         }

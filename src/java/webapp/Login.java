@@ -8,6 +8,7 @@ package webapp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author George.Pasparakis
  */
-public class Servlet1 extends HttpServlet {
+@WebServlet(name = "Servlet2", urlPatterns = {"/Servlet2", "/login", "/xyz/servlet2"})
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +37,10 @@ public class Servlet1 extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Servlet1</title>");
+            out.println("<title>Servlet Servlet2</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Servlet1 at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Servlet2 at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,21 +58,21 @@ public class Servlet1 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Servlet1</title>");
+            out.println("<title>Servlet Servlet2</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<div><p>This is a servlet</p></div>");
-            out.println("<h1>Servlet Servlet1 at " + request.getContextPath() + "</h1>");
-            out.println("<p>" + request.getMethod() + "</p>");
-            // username = 
-            // password = 
+            out.println("<h1>Servlet Servlet2 at " + request.getContextPath() + "</h1>");
+            out.println("<form name=\"login\" action=\"processlogin\">\n" +
+"            <input type=\"text\" name=\"username\" value=\"\" size=\"25\" />\n" +
+"            <input type=\"password\" name=\"password\" value=\"\" />\n" +
+"            <input type=\"submit\" value=\"Login\" name=\"submit\" />\n" +
+"        </form>");
             out.println("</body>");
             out.println("</html>");
         }

@@ -76,6 +76,7 @@ public class ProcessLogin extends HttpServlet {
             ul.setUsername(request.getParameter("username"));
             ul.setPassword(request.getParameter("password"));
             boolean validateLogin = ulService.validateLogin(ul);
+//            ulService.dbValidateLogin(ul); // NOT ALLOWED 
             out.println("<p>Username = " + ul.getUsername() + "</p>");
             out.println("<p>Password = " + ul.getPassword() + "</p>");
             out.println("<p>Validation = " + validateLogin + "</p>");

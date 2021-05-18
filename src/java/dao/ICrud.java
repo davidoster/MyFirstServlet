@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import models.DBConnectionOptions;
+import models.UserLogin;
 
 /**
  *
@@ -21,7 +22,7 @@ public interface ICrud {
     void closeConnection(PreparedStatement preStatement, Connection conn);
     
     
-    ResultSet dbExecute(DBConnectionOptions dbOptions, String sql);
+    ResultSet dbExecute(DBConnectionOptions dbOptions, String sql, UserLogin ul);
     
     
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package webapp;
+package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.UserLogin;
+import services.UserLoginService;
 
 /**
  *
@@ -56,6 +58,8 @@ public class ProcessLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        UserLogin ul = new UserLogin();
+        UserLoginService ulService = new UserLoginService();
 //        processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -69,10 +73,12 @@ public class ProcessLogin extends HttpServlet {
             out.println("<div><p>This is a servlet</p></div>");
             out.println("<h1>Servlet Servlet1 at " + request.getContextPath() + "</h1>");
             out.println("<p>" + request.getMethod() + "</p>");
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            out.println("<p>Username = " + username + "</p>");
-            out.println("<p>Password = " + password + "</p>");
+            ul.setUsername(request.getParameter("username"));
+            ul.setPassword(request.getParameter("password"));
+            boolean validateLogin = ulService.validateLogin(ul);
+            out.println("<p>Username = " + ul.getUsername() + "</p>");
+            out.println("<p>Password = " + ul.getPassword() + "</p>");
+            out.println("<p>Validation = " + validateLogin + "</p>");
             out.println("</body>");
             out.println("</html>");
         }

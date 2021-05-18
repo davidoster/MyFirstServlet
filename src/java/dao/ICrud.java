@@ -18,7 +18,7 @@ public interface ICrud {
     Connection getConnection(DBConnectionOptions dbOptions);
     PreparedStatement createPreStatement(String sql);
     ResultSet execute(PreparedStatement preStatement);
-    void closeConnection(Connection conn);
+    void closeConnection(PreparedStatement preStatement, Connection conn);
     
     
     ResultSet dbExecute(DBConnectionOptions dbOptions, String sql);

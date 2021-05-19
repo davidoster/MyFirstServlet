@@ -7,6 +7,7 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +40,7 @@ public class Login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Servlet2</title>");            
+            out.println("<title>Servlet Servlet2</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Servlet2 at " + request.getContextPath() + "</h1>");
@@ -66,15 +67,15 @@ public class Login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Servlet2</title>");            
+            out.println("<title>Servlet Servlet2</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Servlet2 at " + request.getContextPath() + "</h1>");
-            out.println("<form name=\"login\" action=\"login\" method='POST'>\n" +
-"            <input type=\"text\" name=\"username\" value=\"\" size=\"25\" />\n" +
-"            <input type=\"password\" name=\"password\" value=\"\" />\n" +
-"            <input type=\"submit\" value=\"Login\" name=\"submit\" />\n" +
-"        </form>");
+            out.println("<form name=\"login\" action=\"login\" method='POST'>\n"
+                    + "            <input type=\"text\" name=\"username\" value=\"\" size=\"25\" />\n"
+                    + "            <input type=\"password\" name=\"password\" value=\"\" />\n"
+                    + "            <input type=\"submit\" value=\"Login\" name=\"submit\" />\n"
+                    + "        </form>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -91,6 +92,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        RequestDispatcher rd;
         UserLogin ul = new UserLogin();
         UserLoginService ulService = new UserLoginService();
         response.setContentType("text/html;charset=UTF-8");
@@ -99,7 +101,7 @@ public class Login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Servlet2</title>");            
+            out.println("<title>Servlet Servlet2</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Servlet2 at " + request.getContextPath() + "</h1>");
@@ -107,21 +109,28 @@ public class Login extends HttpServlet {
             out.println("<p>" + request.getMethod() + "</p>");
             ul.setUsername(request.getParameter("username"));
             ul.setPassword(request.getParameter("password"));
-            
+
             boolean validateLogin = ulService.validateLogin(ul);
             // redirect the request to a secure page!!!!!!!!
-            
-            out.println("<p>Username = " + ul.getUsername() + "</p>");
-            out.println("<p>Password = " + ul.getPassword() + "</p>");
+            // if(validateLogin) sendRedirect("secure.jsp");
+            if (validateLogin) {
+                rd = request.getRequestDispatcher("/WEB-INF/secure.jsp");
+                rd.forward(request, response);
+            } else {
+                response.sendRedirect("login");
+            }
+
+//            out.println("<p>Username = " + ul.getUsername() + "</p>");
+//            out.println("<p>Password = " + ul.getPassword() + "</p>");
             out.println("<p>Validation = " + validateLogin + "</p>");
             out.println("</body>");
             out.println("</html>");
         }
     }
-    
+
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) {
-        
+
     }
 
     /**

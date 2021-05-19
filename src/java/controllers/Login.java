@@ -114,10 +114,17 @@ public class Login extends HttpServlet {
             // redirect the request to a secure page!!!!!!!!
             // if(validateLogin) sendRedirect("secure.jsp");
             if (validateLogin) {
+                // 2nd /login, method = POST (1st /login is the method = GET)
+                // correct credentials
                 rd = request.getRequestDispatcher("/WEB-INF/secure.jsp");
                 rd.forward(request, response);
             } else {
-                response.sendRedirect("login");
+                // 2nd /login, method = POST (1st /login is the method = GET)
+                // wrong credentials SOOOOOOOOO
+                
+                // CREATE A NEW REQUEST with EMPTY data and REDIRECT to / login method = GET
+                // this is the 3rd /login (GET)
+                response.sendRedirect("login"); // NEW REQUEST "login" <---- /login GET
             }
 
 //            out.println("<p>Username = " + ul.getUsername() + "</p>");

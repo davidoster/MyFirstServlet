@@ -12,6 +12,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.DBConnectionOptions;
 import models.UserLogin;
 
@@ -50,18 +52,18 @@ public class Crud implements ICrud {
                                      + dbOptions.getDbOptions(); // useSSL=false&serverTimezone=Europe/Athens
         
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url, dbOptions.getUsername(), dbOptions.getPassword());
             String preStatement = sql; // "SELECT username, password FROM users WHERE username = ? AND password = ?";
             PreparedStatement ps = conn.prepareStatement(preStatement);
             ps.setString(1, ul.getUsername());
             ps.setString(2, ul.getPassword());
-//            ps.setString(1, "admin");
-//            ps.setString(2, "admin");
             boolean bReturnValue = ps.execute() && ps.getResultSet().next();
             if(bReturnValue) {
                 return(ps.getResultSet());
             }
-        } catch(SQLException e) {
+        } catch(SQLException | ClassNotFoundException e) {
+            System.out.println("Error: " + e.getLocalizedMessage());
             System.out.println("Oooops");
         }
         return(null);

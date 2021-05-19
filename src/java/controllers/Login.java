@@ -12,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.UserLogin;
+import services.UserLoginService;
 
 /**
  *
@@ -68,7 +70,7 @@ public class Login extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet Servlet2 at " + request.getContextPath() + "</h1>");
-            out.println("<form name=\"login\" action=\"processlogin\">\n" +
+            out.println("<form name=\"login\" action=\"login\" method='POST'>\n" +
 "            <input type=\"text\" name=\"username\" value=\"\" size=\"25\" />\n" +
 "            <input type=\"password\" name=\"password\" value=\"\" />\n" +
 "            <input type=\"submit\" value=\"Login\" name=\"submit\" />\n" +
@@ -89,7 +91,34 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        UserLogin ul = new UserLogin();
+        UserLoginService ulService = new UserLoginService();
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Servlet2</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Servlet2 at " + request.getContextPath() + "</h1>");
+            out.println("Well done you've made it!");
+            out.println("<p>" + request.getMethod() + "</p>");
+            ul.setUsername(request.getParameter("username"));
+            ul.setPassword(request.getParameter("password"));
+            boolean validateLogin = ulService.validateLogin(ul);
+            out.println("<p>Username = " + ul.getUsername() + "</p>");
+            out.println("<p>Password = " + ul.getPassword() + "</p>");
+            out.println("<p>Validation = " + validateLogin + "</p>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+    
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) {
+        
     }
 
     /**

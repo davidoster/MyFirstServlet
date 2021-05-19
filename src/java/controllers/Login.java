@@ -107,7 +107,10 @@ public class Login extends HttpServlet {
             out.println("<p>" + request.getMethod() + "</p>");
             ul.setUsername(request.getParameter("username"));
             ul.setPassword(request.getParameter("password"));
+            
             boolean validateLogin = ulService.validateLogin(ul);
+            // redirect the request to a secure page!!!!!!!!
+            
             out.println("<p>Username = " + ul.getUsername() + "</p>");
             out.println("<p>Password = " + ul.getPassword() + "</p>");
             out.println("<p>Validation = " + validateLogin + "</p>");

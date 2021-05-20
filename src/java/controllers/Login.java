@@ -116,7 +116,9 @@ public class Login extends HttpServlet {
             if (validateLogin) {
                 // 2nd /login, method = POST (1st /login is the method = GET)
                 // correct credentials
-                rd = request.getRequestDispatcher("/WEB-INF/secure.jsp");
+                request.setAttribute("username", ul.getUsername()); // String variable
+                request.setAttribute("userlogin", ul); // Class Object UserLogin
+                rd = request.getRequestDispatcher("/WEB-INF/views/secure.jsp");
                 rd.forward(request, response);
             } else {
                 // 2nd /login, method = POST (1st /login is the method = GET)

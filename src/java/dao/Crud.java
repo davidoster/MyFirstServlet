@@ -50,6 +50,7 @@ public class Crud implements ICrud {
                                      + dbOptions.getHostPort() + "/" 
                                      + dbOptions.getDatabase() + "?"
                                      + dbOptions.getDbOptions(); // useSSL=false&serverTimezone=Europe/Athens
+        System.out.println(url);
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
